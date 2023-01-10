@@ -3,6 +3,10 @@ public class Response {
     private String content;
     private int score;
 
+    public Boolean getSelected() {
+        return selected;
+    }
+
     private Boolean selected;
 
     Response(String content, int score){
@@ -34,9 +38,13 @@ public class Response {
         this.score = score;
     }
 
+    public void isSelected(Boolean selected){
+        this.selected = selected;
+    }
     @Override
     public String toString() {
-        return content;
+        return content +"  score : " +score+" selected: " + selected;
+
     }
 }
 

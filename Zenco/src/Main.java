@@ -3,18 +3,36 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world!");
-        //Questionnaire q = new Questionnaire(questions, user1);
+        Questionnaire q = new Questionnaire();
+        System.out.println(q.toString());
 
-        Question questionA1 = new Question('A',"I feel tense or 'wound up': ");
+        User a = new User("giada","4567","giada@gmail.com");
 
-        //Responses for Anxiety Question 1
-        ArrayList<Response> responseA1 = new ArrayList<Response>();
-        responseA1.add(new Response("Most of the time",3));
-        responseA1.add(new Response("A lot of the time",2));
-        responseA1.add(new Response("From time to time, occasionally ",1));
-        responseA1.add(new Response("Not at all",0));
-        questionA1.setResponses(responseA1);
-        questionA1.printQuestion();
+        q.select(0,0);
+        q.select(1,2);
+        q.select(2,0);
+        q.select(3,2);
+        q.select(4,3);
+        q.select(5,1);
+        q.select(6,2);
+        q.select(7,1);
+        q.select(8,0);
+        q.select(9,2);
+        q.select(10,2);
+        q.select(11,3);
+        q.select(12,3);
+        q.select(13,3);
+
+        System.out.println("user selected option 2");
+        System.out.println(q.toString());
+        q.calcScores();
+        System.out.println("Anxiety Score = "+q.getAnxietyScore());
+        System.out.println("Depression Score = "+q.getDepressionScore());
+
+
+
+
+
 
 
 
