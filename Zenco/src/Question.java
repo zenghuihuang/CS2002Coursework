@@ -1,5 +1,15 @@
+import java.util.ArrayList;
 public class Question {
     private int ID;
+    private Character type;
+    private String content;
+    private ArrayList<Response> responses;
+
+    public Question(Character type, String content) {
+        this.type = type;
+        this.content = content;
+        this.responses = new ArrayList<Response>();
+    }
 
     public int getID() {
         return ID;
@@ -25,17 +35,26 @@ public class Question {
         this.content = content;
     }
 
-    public Response[] getResponses() {
-        return responses;
+    public void setResponses(ArrayList<Response> responses) {
+        for(int i = 0; i < responses.size(); i++) {
+            this.responses.add(responses.get(i));
+        }
     }
 
-    public void setResponses(Response[] responses) {
-        this.responses = responses;
+    public void printQuestion(){
+        System.out.println(" Question:  " + ID + "\n" +
+                           "Type: " + type +"\n "+
+                            content + "\n"+
+                           "options: ");
+        for(int i = 0; i < responses.size(); i++) {
+            System.out.println(responses.get(i));
+        }
+
+    }
     }
 
-    private Character type;
-    private String content;
-    private Response responses[];
 
-}
+
+
+
 

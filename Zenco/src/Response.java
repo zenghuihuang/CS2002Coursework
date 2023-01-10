@@ -34,7 +34,9 @@ public class Response {
         this.score = score;
     }
 
-
-
+    @Override
+    public String toString() {
+        return content;
+    }
 }
 
