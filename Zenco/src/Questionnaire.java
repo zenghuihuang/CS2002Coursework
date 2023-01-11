@@ -4,12 +4,22 @@ public class Questionnaire {
     private ArrayList<Question> questions;
     private User respondent;
     private int anxietyScore;
+
     private int depressionScore;
+
+    private String advice;
+
+
+
+    /**
+     * Constructor initialise a questionnaire with a set of default questions
+     */
 
     public Questionnaire(){
         questions = new ArrayList<Question>();
         anxietyScore = 0;
         depressionScore = 0;
+        advice = "";
         ArrayList<Response> responseA1 = new ArrayList<Response>();
         responseA1.add(new Response("Most of the time",3));
         responseA1.add(new Response("A lot of the time",2));
@@ -144,6 +154,39 @@ public class Questionnaire {
 
     public int getAnxietyScore(){
         return anxietyScore;
+    }
+
+    public String getAdvice(){
+        String anxiety="";
+        String depression="";
+        if(anxietyScore>=11){
+            anxiety="Abnormal";
+        } else if (anxietyScore>=8) {
+            anxiety = "Borderline abnormal";
+        }
+        else {
+            anxiety="Normal";
+        }
+        if(depressionScore>=11){
+            depression="Abnormal";
+        } else if (depressionScore>=8) {
+            depression = "Borderline abnormal";
+
+        }
+        else depression="Normal";
+
+        if(anxiety.equals("Normal") && depression.equals("Normal")){
+            advice = "Your anxiety and depression scores are both in the normal range, however you can practice a 30 seconds of meditation if you are still feeling overwhelmed.\n";
+        } else if (anxiety.equals("Abnormal") && depression.equals("Abnormal")) {
+            advice = "Your anxiety and depression scores are both abnormal. Try to listening to some calming music or do some exercise to help you feel better. " +
+                    "Furthermore, you can consider reaching out for professional help or contact your local GP services.\n";
+        }else{
+            advice = "You are experiencing borderline abnormality of anxiety and depression symptoms. Try to name 5 things that you can see, " +
+                    "4 things that you can feel, 3 things that you can hear, 2 things that you can smell and 1 thing that you taste.\n";
+        }
+
+
+        return advice;
     }
 
     public  int getDepressionScore(){

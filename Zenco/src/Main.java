@@ -28,6 +28,7 @@ public class Main {
         q.calcScores();
         System.out.println("Anxiety Score = "+q.getAnxietyScore());
         System.out.println("Depression Score = "+q.getDepressionScore());
+        System.out.println(q.getAdvice());
 
 
 
