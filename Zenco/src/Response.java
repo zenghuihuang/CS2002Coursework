@@ -2,12 +2,13 @@ public class Response {
     private int ID;
     private String content;
     private int score;
+    private Boolean selected;
 
     public Boolean getSelected() {
         return selected;
     }
 
-    private Boolean selected;
+
 
     Response(String content, int score){
         this.content = content;
