@@ -2,6 +2,8 @@ public class Response {
     private int ID;
     private String content;
     private int score;
+
+    private int option;
     private Boolean selected;
 
     public Boolean getSelected() {
@@ -37,6 +39,14 @@ public class Response {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public int getOption() {
+        return option;
+    }
+
+    public void setOption(int option) {
+        this.option = option;
     }
 
     public void isSelected(Boolean selected){
