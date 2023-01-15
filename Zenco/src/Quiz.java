@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
-public class Questionnaire {
+public class Quiz {
+    private int userId;
     private ArrayList<Question> questions;
-    private User respondent;
     private int anxietyScore;
 
     private int depressionScore;
@@ -15,17 +15,90 @@ public class Questionnaire {
      * Constructor initialise a questionnaire with a set of default questions
      */
 
-    public Questionnaire(){
+    public Quiz(){
         questions = new ArrayList<Question>();
         anxietyScore = 0;
         depressionScore = 0;
         advice = "";
+
+
+    }
+
+    public Quiz(int userId) {
+        this.userId = userId;
+        questions = new ArrayList<Question>();
+        anxietyScore = 0;
+        depressionScore = 0;
+        advice = "";
+    }
+
+    /**
+     * This method allows the user to select one of the four options available for each question
+     * @param question_ID of type int indicates the ID of the question
+     * @param option_ID of type int indicates the ID of the four options which can be either 0,1,2 or 3.
+     */
+    public void select(int question_ID, int option_ID){
+        questions.get(question_ID).setResponseById(option_ID);
+    }
+
+    public void calcScores(){
+
+        for (Question q: questions){
+            for (Response response: q.getResponses())
+                if (response.getSelected()){
+                    if(q.getType() =='A')
+                        anxietyScore = anxietyScore + response.getScore();
+                    else
+                        depressionScore = depressionScore + response.getScore();
+
+                }
+            }
+    }//calcScore
+
+    public int getAnxietyScore(){
+        return anxietyScore;
+    }
+
+    public String getAdvice(){
+        String anxiety="";
+        String depression="";
+        if(anxietyScore>=11){
+            anxiety="Abnormal";
+        } else if (anxietyScore>=8) {
+            anxiety = "Borderline abnormal";
+        }
+        else {
+            anxiety="Normal";
+        }
+        if(depressionScore>=11){
+            depression="Abnormal";
+        } else if (depressionScore>=8) {
+            depression = "Borderline abnormal";
+
+        }
+        else depression="Normal";
+
+        if(anxiety.equals("Normal") && depression.equals("Normal")){
+            advice = "Your anxiety and depression scores are both in the normal range, however you can practice a 30 seconds of meditation if you are still feeling overwhelmed.\n";
+        } else if (anxiety.equals("Abnormal") && depression.equals("Abnormal")) {
+            advice = "Your anxiety and depression scores are both abnormal. Try to listening to some calming music or do some exercise to help you feel better. " +
+                    "Furthermore, you can consider reaching out for professional help or contact your local GP services.\n";
+        }else{
+            advice = "You are experiencing borderline abnormality of anxiety and depression symptoms. Try to name 5 things that you can see, " +
+                    "4 things that you can feel, 3 things that you can hear, 2 things that you can smell and 1 thing that you taste.\n";
+        }
+
+        advice = "\nYour anxiety score is " + anxietyScore + "\n and your depression score is " + depressionScore + "\n." + advice;
+        return advice;
+    }
+
+    public void setDefaultQuiz(){
         ArrayList<Response> responseA1 = new ArrayList<Response>();
         responseA1.add(new Response("Most of the time",3));
         responseA1.add(new Response("A lot of the time",2));
         responseA1.add(new Response("From time to time, occasionally ",1));
         responseA1.add(new Response("Not at all",0));
-        questions.add(new Question(1,'A',"I feel tense or 'wound up':  ",responseA1));
+        questions.add   (new Question(1,'A',"I feel tense or 'wound up':  ",responseA1));
 
         ArrayList<Response> responseD4 = new ArrayList<Response>();
         responseD4.add(new Response("Nearly all the time ",0));
@@ -123,73 +196,11 @@ public class Questionnaire {
 
     }
 
-    public Questionnaire(User respondent) {
-        this.respondent = respondent;
-    }
-
-    /**
-     * This method allows the user to select one of the four options available for each question
-     * @param question_ID of type int indicates the ID of the question
-     * @param option_ID of type int indicates the ID of the four options which can be either 0,1,2 or 3.
-     */
-    public void select(int question_ID, int option_ID){
-        questions.get(question_ID).setResponseById(option_ID);
-    }
-
-    public void calcScores(){
-
-        for (Question q: questions){
-            for (Response response: q.getResponses())
-                if (response.getSelected()){
-                    if(q.getType() =='A')
-                        anxietyScore = anxietyScore + response.getScore();
-                    else
-                        depressionScore = depressionScore + response.getScore();
-
-                }
-            }
-    }//calcScore
-
-    public int getAnxietyScore(){
-        return anxietyScore;
-    }
-
-    public String getAdvice(){
-        String anxiety="";
-        String depression="";
-        if(anxietyScore>=11){
-            anxiety="Abnormal";
-        } else if (anxietyScore>=8) {
-            anxiety = "Borderline abnormal";
-        }
-        else {
-            anxiety="Normal";
-        }
-        if(depressionScore>=11){
-            depression="Abnormal";
-        } else if (depressionScore>=8) {
-            depression = "Borderline abnormal";
-
-        }
-        else depression="Normal";
-
-        if(anxiety.equals("Normal") && depression.equals("Normal")){
-            advice = "Your anxiety and depression scores are both in the normal range, however you can practice a 30 seconds of meditation if you are still feeling overwhelmed.\n";
-        } else if (anxiety.equals("Abnormal") && depression.equals("Abnormal")) {
-            advice = "Your anxiety and depression scores are both abnormal. Try to listening to some calming music or do some exercise to help you feel better. " +
-                    "Furthermore, you can consider reaching out for professional help or contact your local GP services.\n";
-        }else{
-            advice = "You are experiencing borderline abnormality of anxiety and depression symptoms. Try to name 5 things that you can see, " +
-                    "4 things that you can feel, 3 things that you can hear, 2 things that you can smell and 1 thing that you taste.\n";
-        }
-
-
-        return advice;
-    }
-
     public  int getDepressionScore(){
         return depressionScore;
     }
+
+
 
     @Override
     public String toString() {
@@ -200,4 +211,6 @@ public class Questionnaire {
 
         return outcome;
     }
+
+
 }
